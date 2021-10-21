@@ -25,3 +25,41 @@ class BTP(object):
         self.Shape = constants.Constants.GN_GBC_DESTSHAPE
         self.Angle = constants.Constants.GN_GBC_DESTANGLE
         self.Unused = 0
+
+    def assemble_btp_fields(self):
+        temp = struct.pack('!BBBBHH',
+                           self.BTPType,
+                           self.PktTransport,
+                           self.TrafficClass,
+                           self.MaxPktLifetime,
+                           self.DestPort,
+                           self.DestInfo
+                           )
+
+        temp += struct.pack('!IIHHHBB',
+                            self.Latitude,
+                            self.Longitude,
+                            self.DistanceA,
+                            self.DistanceB,
+                            self.Angle,
+                            self.Shape,
+                            self.Unused
+                            )
+
+        temp += struct.pack('!BBBBIBBBBBBH',
+                            self.CommProfile,
+                            self.RepeatInterval,
+                            self.SecProfile,
+                            self.SSPLen,
+                            self.AID,
+                            self.SSPBits[0],
+                            self.SSPBits[1],
+                            self.SSPBits[2],
+                            self.SSPBits[3],
+                            self.SSPBits[4],
+                            self.SSPBits[5],
+                            self.Length
+                            )
+
+        self.raw = temp
+        return
