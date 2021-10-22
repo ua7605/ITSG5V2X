@@ -3,11 +3,9 @@ import json
 import sys
 import time
 
-import gpsd
-
-import constants.Constants
+import constant.Constants
 from GPSlogic.GPSPolling import GpsPoller
-from cohda.BTPheader import BTP
+from Cohdas.BTPheader import BTP
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
@@ -29,10 +27,10 @@ if __name__ == '__main__':
 
     if (sys.argv[1] == "ITSG5"):
         print("ITSG5 Mode")
-        server_address = (constants.Constants.SERVER_ADDRESS_ITSG5, constants.Constants.TX_PORT)
+        server_address = (constant.Constants.SERVER_ADDRESS_ITSG5, constant.Constants.TX_PORT)
 
     elif (sys.argv[1] == "CV2X"):
-        server_address = (constants.Constants.SERVER_ADDRESS_CV2X, constants.Constants.TX_PORT)
+        server_address = (constant.Constants.SERVER_ADDRESS_CV2X, constant.Constants.TX_PORT)
         print("CV2X Mode")
 
     gpsp = GpsPoller()
@@ -49,9 +47,9 @@ if __name__ == '__main__':
                 si_json = json.dumps(si.__dict__)
 
                 if (sys.argv[2] == "DENM"):
-                    si_json = si_json.ljust(constants.Constants.PACKET_SIZE + 1)
+                    si_json = si_json.ljust(constant.Constants.PACKET_SIZE + 1)
                 else:
-                    si_json = si_json.ljust(constants.Constants.PACKET_SIZE)
+                    si_json = si_json.ljust(constant.Constants.PACKET_SIZE)
 
                 if (sys.argv[1] == "ITSG5"):
                     btp_header = BTP((len(si_json)),
@@ -72,7 +70,7 @@ if __name__ == '__main__':
                 print(si_json)
             else:
                 print("NOFIX")
-            time.sleep(constants.Constants.INTERVAL_MS / 1000.0)
+            time.sleep(constant.Constants.INTERVAL_MS / 1000.0)
 
     except (KeyboardInterrupt, SystemExit):
         print("interrupted")

@@ -1,7 +1,7 @@
 import threading
 from gps import *
 
-from constants import Constants
+from constant import Constants
 from GPSlogic.GPS import GPSItem
 
 
