@@ -54,6 +54,9 @@ if __name__ == '__main__':
                     si_json = si_json.ljust(PACKET_SIZE)
 
                 if (sys.argv[1] == "ITSG5"):
+                    print("THis will be send: ",si_json)
+                    print("This is: gpsp.gpsd.fix.latitude * 10000000 = ", gpsp.gpsd.fix.latitude * 10000000)
+                    print("This is: gpsp.gpsd.fix.longitude * 10000000 = ", gpsp.gpsd.fix.longitude * 10000000)
                     btp_header = BTP((len(si_json)),
                                      gpsp.gpsd.fix.latitude * 10000000,
                                      gpsp.gpsd.fix.longitude * 10000000
