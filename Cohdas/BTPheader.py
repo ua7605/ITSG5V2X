@@ -35,7 +35,7 @@ class BTP(object):
                            self.DestPort,
                            self.DestInfo
                            )
-
+        print("This is the self.Unused that is not an integer: ", self.Unused)
         temp += struct.pack('!IIHHHBB',
                             self.Latitude,
                             self.Longitude,
