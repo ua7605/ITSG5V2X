@@ -58,7 +58,9 @@ if __name__ == '__main__':
                                      gpsp.gpsd.fix.latitude * 10000000,
                                      gpsp.gpsd.fix.longitude * 10000000
                                      )
+                    print("The error happens below:")
                     btp_header.assemble_btp_fields()
+                    print("This you don't reach")
                     sent = sock.sendto(data=btp_header.raw + si_json, address=server_address)
                     si.size = sent  # can be removed no use!
 
