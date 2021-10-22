@@ -24,7 +24,7 @@ class BTP(object):
         self.DistanceB = constant.Constants.GN_GBC_DESTDISTANCEB
         self.Shape = constant.Constants.GN_GBC_DESTSHAPE
         self.Angle = constant.Constants.GN_GBC_DESTANGLE
-        self.Unused = 0
+        self.Unused: int = 0
 
     def assemble_btp_fields(self):
         temp = struct.pack('!BBBBHH',
