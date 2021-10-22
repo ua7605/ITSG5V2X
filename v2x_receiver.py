@@ -11,17 +11,20 @@ gpsd = None
 class GpsPoller(threading.Thread):
   def __init__(self):
         threading.Thread.__init__(self)
-        global gpsd #bring it in scope
-        gpsd = gps(mode=WATCH_ENABLE) #starting the stream of info
+        #bring it in scope
+        self.gpsd = gps(mode=WATCH_ENABLE) #starting the stream of info
         self.current_value = None
         self.running = True #setting the thread running to true
 
   def run(self):
-      global gpsd
-      while gpsd.running:
-          if gpsd.waiting():
-              gpsd.next()
-          gi = GPSItem(int(round(time.time() * 1000)), gpsd.fix.latitude, gpsd.fix.longitude, gpsd.fix.speed)
+      while self.running:
+          if self.gpsd.waiting():
+              self.gpsd.next()
+          gi = GPSItem(int(round(time.time() * 1000)),
+                       self.gpsd.fix.latitude,
+                       self.gpsd.fix.longitude,
+                       self.gpsd.fix.speed
+                       )
           gi_json = json.dumps(gi.__dict__)
 
           time.sleep(GPS_INTERVAL_MS / 1000.0)
@@ -105,9 +108,9 @@ if __name__ == '__main__':
                                  json_data["s_lon"],
                                  json_data["s_speed"],
                                  millis,
-                                 gpsd.fix.latitude,
-                                 gpsd.fix.longitude,
-                                 gpsd.fix.speed,
+                                 gpsp.gpsd.fix.latitude,
+                                 gpsp.gpsd.fix.longitude,
+                                 gpsp.gpsd.fix.speed,
                                  len(data)
                                  )
                 ri_json = json.dumps(ri.__dict__)
