@@ -1,6 +1,8 @@
 from gps import *
 import threading
 
+from GPSlogic.GPS import GPSDaemon
+from config import TomlReader
 from constant.Constants import *
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -69,6 +71,10 @@ def on_message(client, userdata, message):
 
 
 if __name__ == '__main__':
+
+    configuration_toml_file = TomlReader.configuration_toml("config.toml")
+    gpsDaemon: GPSDaemon = GPSDaemon.load_from_config(configuration_toml_file)
+
     if len(sys.argv) != 2:
         print("Wrong number of arguments")
         exit(0)
@@ -107,9 +113,9 @@ if __name__ == '__main__':
                                  json_data["s_lon"],
                                  json_data["s_speed"],
                                  millis,
-                                 gpsp.gpsd.fix.latitude,
-                                 gpsp.gpsd.fix.longitude,
-                                 gpsp.gpsd.fix.speed,
+                                 gpsDaemon.get_latitude(),
+                                 gpsDaemon.get_longitude(),
+                                 gpsDaemon.get_speed(),
                                  len(data)
                                  )
                 ri_json = json.dumps(ri.__dict__)
