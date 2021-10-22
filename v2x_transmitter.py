@@ -44,6 +44,9 @@ if __name__ == '__main__':
 
         while True:
             if (gpsp.gpsd.fix.mode != 200):  # mode = 1 means no fix
+                print("look here vincent below: ")
+                print("latitude: ", gpsDaemon.get_latitude())
+                print("longitude: ", gpsDaemon.get_longitude())
                 i += 1
                 millis = int(round(time.time() * 1000))
                 si = SendItem(i, millis, gpsp.gpsd.fix.latitude, gpsp.gpsd.fix.longitude, gpsp.gpsd.fix.speed)
