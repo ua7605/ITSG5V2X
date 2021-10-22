@@ -88,7 +88,7 @@ if __name__ == '__main__':
 
         while True:
             print("Waiting for incoming UDP message")
-            data, addr = sock.recvfrom(bufsize=1300)
+            data, addr = sock.recvfrom(1300)
             print("Received message: ", data)
 
             if (gpsd.fix.mode != 200):  # mode = 1 means no fix
