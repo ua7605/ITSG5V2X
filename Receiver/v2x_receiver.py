@@ -4,7 +4,7 @@ import time
 import json
 from gps import *
 import threading
-from constants import Constants
+import constants.Constants
 import os
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -26,7 +26,7 @@ class GpsPoller(threading.Thread):
           gi = GPSItem(int(round(time.time() * 1000)), gpsd.fix.latitude, gpsd.fix.longitude, gpsd.fix.speed)
           gi_json = json.dumps(gi.__dict__)
 
-          time.sleep(Constants.GPS_INTERVAL_MS / 1000.0)
+          time.sleep(constants.Constants.GPS_INTERVAL_MS / 1000.0)
 
 
 class GPSItem:
