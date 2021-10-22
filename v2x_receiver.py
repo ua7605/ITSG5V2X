@@ -7,31 +7,30 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 gpsd = None
 
 
-
 class GpsPoller(threading.Thread):
-  def __init__(self):
+    def __init__(self):
         threading.Thread.__init__(self)
-        #bring it in scope
-        self.gpsd = gps(mode=WATCH_ENABLE) #starting the stream of info
+        # bring it in scope
+        self.gpsd = gps(mode=WATCH_ENABLE)  # starting the stream of info
         self.current_value = None
-        self.running = True #setting the thread running to true
+        self.running = True  # setting the thread running to true
 
-  def run(self):
-      while self.running:
-          if self.gpsd.waiting():
-              self.gpsd.next()
-          gi = GPSItem(int(round(time.time() * 1000)),
-                       self.gpsd.fix.latitude,
-                       self.gpsd.fix.longitude,
-                       self.gpsd.fix.speed
-                       )
-          gi_json = json.dumps(gi.__dict__)
+    def run(self):
+        while self.running:
+            if self.gpsd.waiting():
+                self.gpsd.next()
+            gi = GPSItem(int(round(time.time() * 1000)),
+                         self.gpsd.fix.latitude,
+                         self.gpsd.fix.longitude,
+                         self.gpsd.fix.speed
+                         )
+            gi_json = json.dumps(gi.__dict__)
 
-          time.sleep(GPS_INTERVAL_MS / 1000.0)
+            time.sleep(GPS_INTERVAL_MS / 1000.0)
 
 
 class GPSItem:
-    def __init__(self, ts = 0, lat = 0, lon = 0, speed = 0):
+    def __init__(self, ts=0, lat=0, lon=0, speed=0):
         self.ts = ts
         self.lat = lat
         self.lon = lon
@@ -55,7 +54,7 @@ class ReceiveItem:
 
 def on_message(client, userdata, message):
     print("received message = ", str(message.payload.decode("utf-8")))
-    if(gpsd.fix.mode != 200):
+    if (gpsd.fix.mode != 200):
         millis = int(round(time.time() * 1000))
         payload = str(message.payload.decode("utf-8"))
         json_data = json.loads(payload)
@@ -128,9 +127,3 @@ if __name__ == '__main__':
         gpsp.join()
         print(sys.stderr, "Closing socket")
         sock.close()
-
-
-
-
-
-
