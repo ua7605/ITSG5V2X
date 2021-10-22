@@ -13,7 +13,7 @@ class BTP(object):
         self.DestInfo = 0
         self.CommProfile = constant.Constants.ETSI_GN_PROFILE_ITS_G5
         self.RepeatInterval = 0
-        self.Lenght = length
+        self.Length = length
         self.SecProfile = constant.Constants.ETSI_GN_SEC_PROF_AID_SSP
         self.AID = 0x25
         self.SSPLen = 4
