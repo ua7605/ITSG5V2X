@@ -96,15 +96,19 @@ if __name__ == '__main__':
             data, addr = sock.recvfrom(1300)
             print("Received message: ", data)
 
-            if (gpsd.fix.mode != 200):  # mode = 1 means no fix
+            if gpsDaemon.get_mode() != 200:  # mode = 1 means no fix
                 millis = int(round(time.time() * 1000))
-                if (sys.argv[1] == "ITSG5"):
+
+                if sys.argv[1] == "ITSG5":
                     tmp = data[BTP_HEADER_SIZE:]
                     json_data = json.loads(tmp)
-                elif (sys.argv[1] == "CV2X"):
+
+                elif sys.argv[1] == "CV2X":
                     json_data = json.loads(data)
-                elif (sys.argv[1] == "MQTT"):
+
+                elif sys.argv[1] == "MQTT":
                     pass
+
                 else:
                     pass
                 ri = ReceiveItem(json_data["id"],
