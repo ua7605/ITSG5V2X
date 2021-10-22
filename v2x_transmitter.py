@@ -23,6 +23,7 @@ if __name__ == '__main__':
 
     if len(sys.argv) != 3:
         print(len(sys.argv))
+        print(sys.argv[1])
         print("Wrong number of arguments")
         exit(0)
 
