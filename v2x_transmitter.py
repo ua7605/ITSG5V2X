@@ -72,11 +72,11 @@ if __name__ == '__main__':
 
                 if (sys.argv[1] == "ITSG5"):
                     print("THis will be send: ",si_json)
-                    print("This is: gpsDaemon.get_latitude() * 10000000 = ", gpsDaemon.get_latitude() * 10000000)
-                    print("This is: gpsDaemon.get_longitude() * 10000000 = ", gpsDaemon.get_longitude() * 10000000)
+                    print("This is: round(gpsDaemon.get_latitude() * 10000000) = ", round(gpsDaemon.get_latitude() * 10000000))
+                    print("This is: round(gpsDaemon.get_longitude() * 10000000) = ", round(gpsDaemon.get_longitude() * 10000000))
                     btp_header = BTP((len(si_json)),
-                                     gpsDaemon.get_latitude() * 10000000,
-                                     gpsDaemon.get_longitude() * 10000000
+                                     round(gpsDaemon.get_latitude() * 10000000),
+                                     round(gpsDaemon.get_longitude() * 10000000)
                                      )
 
                     btp_header.assemble_btp_fields()
