@@ -81,7 +81,8 @@ if __name__ == '__main__':
 
                     btp_header.assemble_btp_fields()
                     print("The header is assembled !!!!")
-                    to_be_send = btp_header.raw + bytes(si_json)
+                    to_be_send = btp_header.raw + bytes(si_json.encode('utf-8'))
+                    self.stop
                     sent = sock.sendto(bytes(to_be_send), server_address)
                     si.size = sent  # can be removed no use!
 
