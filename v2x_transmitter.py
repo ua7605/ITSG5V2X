@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
                     btp_header.assemble_btp_fields()
                     print("The header is assembled !!!!")
-                    sent = sock.sendto(data=bytearray(btp_header.raw + si_json), address=server_address)
+                    sent = sock.sendto(data=bytes(btp_header.raw + si_json), address=server_address)
                     si.size = sent  # can be removed no use!
 
                 elif (sys.argv[1] == "CV2X"):
