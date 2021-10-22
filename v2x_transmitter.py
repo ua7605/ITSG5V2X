@@ -2,6 +2,7 @@ import socket
 import json
 import sys
 import time
+import toml
 
 from GPSlogic.GPS import GPSDaemon
 from constant.Constants import *
@@ -19,8 +20,19 @@ class SendItem:
         self.s_lon = lon
         self.s_speed = speed
 
+def configuration_toml(config: str):
+    try:
+        with open(config) as file:
+            configuration_file = toml.load(f=file)
+            return configuration_file
+    except:
+        print("File doesn't exists: " + config)
+        sys.exit(0)
 
 if __name__ == '__main__':
+
+    configuration_toml_file = configuration_toml("config.toml")
+
 
     if len(sys.argv) != 3:
         print(len(sys.argv))
@@ -37,7 +49,7 @@ if __name__ == '__main__':
         print("CV2X Mode")
 
     gpsp = GpsPoller()
-    gpsDaemon: GPSDaemon = GPSDaemon.load_from_config("config.toml")
+    gpsDaemon: GPSDaemon = GPSDaemon.load_from_config(configuration_toml_file)
     try:
         gpsp.start()
         i = 0
