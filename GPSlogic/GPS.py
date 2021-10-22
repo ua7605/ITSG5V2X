@@ -33,3 +33,6 @@ class GPSDaemon(object):
 
     def get_speed(self):
         return gpsd.get_current().speed()
+
+    def get_mode(self):
+        return gpsd.get_current().mode
