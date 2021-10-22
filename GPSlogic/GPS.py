@@ -30,3 +30,6 @@ class GPSDaemon(object):
 
     def get_longitude(self):
         return gpsd.get_current().lon
+
+    def get_speed(self):
+        return gpsd.get_current().speed()

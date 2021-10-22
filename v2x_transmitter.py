@@ -61,7 +61,7 @@ if __name__ == '__main__':
                 print("longitude: ", gpsDaemon.get_longitude())
                 i += 1
                 millis = int(round(time.time() * 1000))
-                si = SendItem(i, millis, gpsp.gpsd.fix.latitude, gpsp.gpsd.fix.longitude, gpsp.gpsd.fix.speed)
+                si = SendItem(i, millis, gpsDaemon.get_latitude(), gpsDaemon.get_longitude(), gpsDaemon.get_speed())
 
                 si_json = json.dumps(si.__dict__)
 
@@ -72,15 +72,15 @@ if __name__ == '__main__':
 
                 if (sys.argv[1] == "ITSG5"):
                     print("THis will be send: ",si_json)
-                    print("This is: gpsp.gpsd.fix.latitude * 10000000 = ", gpsp.gpsd.fix.latitude * 10000000)
-                    print("This is: gpsp.gpsd.fix.longitude * 10000000 = ", gpsp.gpsd.fix.longitude * 10000000)
+                    print("This is: gpsDaemon.get_latitude() * 10000000 = ", gpsDaemon.get_latitude() * 10000000)
+                    print("This is: gpsDaemon.get_longitude() * 10000000 = ", gpsDaemon.get_longitude() * 10000000)
                     btp_header = BTP((len(si_json)),
-                                     gpsp.gpsd.fix.latitude * 10000000,
-                                     gpsp.gpsd.fix.longitude * 10000000
+                                     gpsDaemon.get_latitude() * 10000000,
+                                     gpsDaemon.get_longitude() * 10000000
                                      )
-                    print("The error happens below:")
+
                     btp_header.assemble_btp_fields()
-                    print("This you don't reach")
+                    print("The header is assembled !!!!")
                     sent = sock.sendto(data=btp_header.raw + si_json, address=server_address)
                     si.size = sent  # can be removed no use!
 
