@@ -3,6 +3,7 @@ import json
 import sys
 import time
 
+from GPSlogic.GPS import GPSDaemon
 from constant.Constants import *
 from GPSlogic.GPSPolling import GpsPoller
 from Cohdas.BTPheader import BTP
@@ -36,6 +37,7 @@ if __name__ == '__main__':
         print("CV2X Mode")
 
     gpsp = GpsPoller()
+    gpsDaemon: GPSDaemon = GPSDaemon.load_from_config("config.toml")
     try:
         gpsp.start()
         i = 0
