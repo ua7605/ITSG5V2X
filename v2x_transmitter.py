@@ -87,6 +87,7 @@ if __name__ == '__main__':
                     print("THe message is sent!")
                     si.size = sent  # can be removed no use!
 
+
                 elif (sys.argv[1] == "CV2X"):
                     sent = sock.sendto(data=si_json, address=server_address)
                     si.size = sent
