@@ -4,11 +4,15 @@ import time
 import json
 from gps import *
 import threading
-import constants.Constants
+
 import os
+
+from Receiver.const import Setup
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 gpsd = None
+
+const = Setup()
 
 class GpsPoller(threading.Thread):
   def __init__(self):
@@ -26,7 +30,7 @@ class GpsPoller(threading.Thread):
           gi = GPSItem(int(round(time.time() * 1000)), gpsd.fix.latitude, gpsd.fix.longitude, gpsd.fix.speed)
           gi_json = json.dumps(gi.__dict__)
 
-          time.sleep(constants.Constants.GPS_INTERVAL_MS / 1000.0)
+          time.sleep(const.GPS_INTERVAL_MS / 1000.0)
 
 
 class GPSItem:
@@ -93,7 +97,7 @@ if __name__ == '__main__':
             if (gpsd.fix.mode != 200):  # mode = 1 means no fix
                 millis = int(round(time.time() * 1000))
                 if (sys.argv[1] == "ITSG5"):
-                    tmp = data[Constants.BTP_HEADER_SIZE:]
+                    tmp = data[const.BTP_HEADER_SIZE:]
                     json_data = json.loads(tmp)
                 elif (sys.argv[1] == "CV2X"):
                     json_data = json.loads(data)
