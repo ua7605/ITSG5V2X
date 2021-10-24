@@ -80,9 +80,11 @@ if __name__ == '__main__':
         exit(0)
 
     if (sys.argv[1] == "ITSG5"):
-        print("ITSG5 Mode")
+        sock.bind((IP_ADDRESS, RX_PORT_ITSG5))
+        print("ITSG5 Mode, sock.bind successfully!!!")
 
     else:
+        sock.bind((IP_ADDRESS, RX_PORT_CV2X))
         print("Usage: v2x_transmitter [ITSG5 | CV2X | MQTT]")
         exit(0)
 
