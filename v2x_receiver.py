@@ -6,7 +6,7 @@ from config import TomlReader
 from constant.Constants import *
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-print("Socket created!!!")
+
 gpsd = None
 
 
