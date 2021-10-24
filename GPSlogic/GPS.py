@@ -11,10 +11,15 @@ class GPSItem(object):
 
 class GPSDaemon(object):
     @staticmethod
-    def load_from_config(configuration):
+    def load_from_config(configuration, transmitter: bool):
         gps_config = configuration["GPS"]
-        gps_host_ip: str = gps_config["GPS_host_ip"]
         gps_port: int = gps_config["GPS_port"]
+
+        if transmitter:
+            gps_host_ip: str = gps_config["GPS_host_ip_transmitter"]
+        else:
+            gps_host_ip: str = gps_config["GPS_host_ip_receiver"]
+
 
         return GPSDaemon(host_ip=gps_host_ip,
                          port=gps_port,

@@ -49,7 +49,8 @@ if __name__ == '__main__':
         print("CV2X Mode")
 
     gpsp = GpsPoller()
-    gpsDaemon: GPSDaemon = GPSDaemon.load_from_config(configuration_toml_file)
+    gpsDaemon: GPSDaemon = GPSDaemon.load_from_config(configuration=configuration_toml_file, transmitter=True)
+
     try:
         gpsp.start()
         i = 0

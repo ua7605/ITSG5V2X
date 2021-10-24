@@ -73,7 +73,7 @@ def on_message(client, userdata, message):
 if __name__ == '__main__':
 
     configuration_toml_file = TomlReader.configuration_toml("config.toml")
-    gpsDaemon: GPSDaemon = GPSDaemon.load_from_config(configuration_toml_file)
+    gpsDaemon: GPSDaemon = GPSDaemon.load_from_config(configuration=configuration_toml_file, transmitter=False)
 
     if len(sys.argv) != 2:
         print("Wrong number of arguments")
