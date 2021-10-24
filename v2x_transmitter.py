@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
     if (sys.argv[1] == "ITSG5"):
         print("ITSG5 Mode")
-        server_address = (SERVER_ADDRESS_ITSG5, 4401)
+        server_address = (SERVER_ADDRESS_ITSG5, TX_PORT)
 
     elif (sys.argv[1] == "CV2X"):
         server_address = (SERVER_ADDRESS_CV2X, TX_PORT)
