@@ -83,7 +83,7 @@ if __name__ == '__main__':
     if (sys.argv[1] == "ITSG5"):
         print("IP_ADDRESS: ", IP_ADDRESS, "RX_PORT_ITSG5: ", 4400)
         # sock.bind((IP_ADDRESS, 4400))
-        sock.connect((IP_ADDRESS, 4400))
+        sock.connect((IP_ADDRESS, 4403))
         print("ITSG5 Mode, sock.bind successfully!!!")
 
     else:
