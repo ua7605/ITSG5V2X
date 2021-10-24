@@ -6,6 +6,7 @@ from config import TomlReader
 from constant.Constants import *
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+print("Socket created!!!")
 gpsd = None
 
 
@@ -80,8 +81,8 @@ if __name__ == '__main__':
         exit(0)
 
     if (sys.argv[1] == "ITSG5"):
-        print("IP_ADDRESS: ", IP_ADDRESS, "RX_PORT_ITSG5: ", RX_PORT_ITSG5)
-        sock.bind((IP_ADDRESS, RX_PORT_ITSG5))
+        print("IP_ADDRESS: ", IP_ADDRESS, "RX_PORT_ITSG5: ", 4400)
+        sock.bind((IP_ADDRESS, 4400))
         print("ITSG5 Mode, sock.bind successfully!!!")
 
     else:
