@@ -116,6 +116,10 @@ if __name__ == '__main__':
                     print("This is your fix_bytes_value:")
                     print(fix_bytes_value)
                     print("Below it will try to jsonload")
+                    text = str(fix_bytes_value)
+                    head, sep, tail = text.partition('k')
+                    print("below the data without the ku\x8f\xd5")
+                    print(head)
 
                     my_json = json.load(io.BytesIO(fix_bytes_value))
                     print(my_json)
