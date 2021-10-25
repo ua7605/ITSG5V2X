@@ -10,6 +10,7 @@ from constant.Constants import *
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 gpsd = None
+IP_Adress_lxc: str = "None"
 
 
 class GpsPoller(threading.Thread):
@@ -80,12 +81,16 @@ if __name__ == '__main__':
 
     if len(sys.argv) != 2:
         print("Wrong number of arguments")
+        print("Give first the technology you want to use (for now only ITS-G5 is supported)")
+        print("Give second the IP-address of your LXC container (where this program is running and that matches with\n"
+              " ItsUdpBtpIfHostName in the 'obu.conf that is included in this OBU or RSU.")
         exit(0)
 
     if (sys.argv[1] == "ITSG5"):
         # To receive message you need to listen to the port 4400 it can be found in the obu.conf
         print("connected to: IP_ADDRESS: 143.129.82.245 at port: 4400")
-        sock.bind(("143.129.82.245", 4400))  # You need to bind to the IP-address of your lxc container.
+        # sock.bind(("143.129.82.24", 4400))  # You need to bind to the IP-address of your lxc container.
+        sock.bind((sys.argv[2], 4400))
         print("ITSG5 Mode, sock.bind successfully!!!")
 
     else:
@@ -113,19 +118,19 @@ if __name__ == '__main__':
                     print("Below your json:")
 
                     fix_bytes_value = tmp.replace(b"'", b'"')
-                    #print("This is your fix_bytes_value:")
-                    #print(fix_bytes_value)
-                    #print("Below it will try to jsonload")
-                    #text = str(fix_bytes_value)
-                    #head, sep, tail = text.partition('k')
-                    #print("below the data without the ku\x8f\xd5")
-                    #print(head)
+                    # print("This is your fix_bytes_value:")
+                    # print(fix_bytes_value)
+                    # print("Below it will try to jsonload")
+                    # text = str(fix_bytes_value)
+                    # head, sep, tail = text.partition('k')
+                    # print("below the data without the ku\x8f\xd5")
+                    # print(head)
 
-                    #my_json = json.load(io.BytesIO(fix_bytes_value))
-                    #print(my_json)
+                    # my_json = json.load(io.BytesIO(fix_bytes_value))
+                    # print(my_json)
 
-                    #json_data = json.loads(tmp)
-                    #print("Look here JSON data: ", json_data)
+                    # json_data = json.loads(tmp)
+                    # print("Look here JSON data: ", json_data)
 
                     text = str(fix_bytes_value)
                     head, sep, tail = text.partition("}")
