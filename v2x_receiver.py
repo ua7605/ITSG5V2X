@@ -106,6 +106,8 @@ if __name__ == '__main__':
 
                 if sys.argv[1] == "ITSG5":
                     tmp = data[BTP_HEADER_SIZE:]
+                    print("THis is data[BTP_HEADER_SIZE:] stored in the variable: 'tmp'")
+                    print(tmp)
                     json_data = json.loads(tmp)
                     print("Look here JSON data: ", json_data)
 
