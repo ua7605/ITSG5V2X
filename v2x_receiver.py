@@ -79,7 +79,7 @@ if __name__ == '__main__':
     configuration_toml_file = TomlReader.configuration_toml("config.toml")
     gpsDaemon: GPSDaemon = GPSDaemon.load_from_config(configuration=configuration_toml_file, transmitter=False)
 
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         print("Wrong number of arguments")
         print("Give first the technology you want to use (for now only ITSG5 is supported)")
         print("Give second the IP-address of your LXC container (where this program is running and that matches with\n"
