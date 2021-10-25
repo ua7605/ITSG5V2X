@@ -1,5 +1,7 @@
 from gps import *
 import threading
+import json
+import io
 
 from GPSlogic.GPS import GPSDaemon
 from config import TomlReader
@@ -108,10 +110,15 @@ if __name__ == '__main__':
                     tmp = data[BTP_HEADER_SIZE:]
                     print("THis is data[BTP_HEADER_SIZE:] stored in the variable: 'tmp'")
                     print(tmp)
-                    print("Trying tmp.decode('utf-8')")
-                    print(tmp.decode('utf-8'))
-                    json_data = json.loads(tmp)
-                    print("Look here JSON data: ", json_data)
+                    print("Below your json:")
+
+                    fix_bytes_value = tmp.replace(b"'", b'"')
+
+                    my_json = json.load(io.BytesIO(fix_bytes_value))
+                    print(my_json)
+
+                    #json_data = json.loads(tmp)
+                    #print("Look here JSON data: ", json_data)
 
                 elif sys.argv[1] == "CV2X":
                     json_data = json.loads(data)
