@@ -82,8 +82,10 @@ if __name__ == '__main__':
 
     if (sys.argv[1] == "ITSG5"):
         # To receive message you need to listen to the port 4401 it can be found in the obu.conf
-        print("IP_ADDRESS: ", IP_ADDRESS, "RX_PORT_ITSG5: ", 4401)
-        sock.bind((IP_ADDRESS, 4401))
+        #print("IP_ADDRESS: ", IP_ADDRESS, "RX_PORT_ITSG5: ", 4401)
+        print("connected to: IP_ADDRESS: 143.129.82.245 at port: 4401")
+        # Original: sock.bind((IP_ADDRESS, 4401))
+        sock.bind(("143.129.82.245", 4401))
         #sock.connect((IP_ADDRESS, 4401))
         print("ITSG5 Mode, sock.bind successfully!!!")
 
