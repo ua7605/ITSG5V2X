@@ -85,7 +85,7 @@ if __name__ == '__main__':
         #print("IP_ADDRESS: ", IP_ADDRESS, "RX_PORT_ITSG5: ", 4401)
         print("connected to: IP_ADDRESS: 143.129.82.245 at port: 4401")
         # Original: sock.bind((IP_ADDRESS, 4401))
-        sock.bind(("143.129.82.245", 4401))
+        sock.bind(("143.129.82.245", 4400))
         #sock.connect((IP_ADDRESS, 4401))
         print("ITSG5 Mode, sock.bind successfully!!!")
 
