@@ -42,10 +42,10 @@ if __name__ == '__main__':
 
     if (sys.argv[1] == "ITSG5"):
         print("ITSG5 Mode")
-        server_address = (SERVER_ADDRESS_ITSG5, TX_PORT)
+        server_address = (SERVER_ADDRESS_ITSG5, 4400) # The port number can be found in the obu.conf file
 
     elif (sys.argv[1] == "CV2X"):
-        server_address = (SERVER_ADDRESS_CV2X, TX_PORT)
+        server_address = (SERVER_ADDRESS_CV2X, 4400) # The port number can be found in the obu.conf file
         print("CV2X Mode")
 
     gpsp = GpsPoller()
