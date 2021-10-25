@@ -137,6 +137,7 @@ if __name__ == '__main__':
                     my_json = json.loads(head2)
                     print("Loaded!!!!!")
                     print(my_json)
+                    json_data = my_json
 
 
 
