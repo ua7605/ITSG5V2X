@@ -10,7 +10,7 @@ from constant.Constants import *
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 gpsd = None
-IP_Adress_lxc: str = "None"
+IP_Address_lxc: str = "None"
 
 
 class GpsPoller(threading.Thread):
@@ -88,13 +88,15 @@ if __name__ == '__main__':
 
     if (sys.argv[1] == "ITSG5"):
         # To receive message you need to listen to the port 4400 it can be found in the obu.conf
-        print("connected to: IP_ADDRESS: 143.129.82.245 at port: 4400")
+        print("connected to: IP_ADDRESS: ", IP_Address_lxc, " at port: 4400")
         # sock.bind(("143.129.82.24", 4400))  # You need to bind to the IP-address of your lxc container.
+        IP_Address_lxc = sys.argv[2]
         sock.bind((sys.argv[2], 4400))
         print("ITSG5 Mode, sock.bind successfully!!!")
 
     else:
-        sock.bind((IP_ADDRESS, RX_PORT_CV2X))
+        IP_Address_lxc = sys.argv[2]
+        sock.bind((IP_Address_lxc, 4400))
         print("Usage: v2x_transmitter [ITSG5 | CV2X | MQTT]")
         exit(0)
 
