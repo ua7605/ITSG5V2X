@@ -113,19 +113,32 @@ if __name__ == '__main__':
                     print("Below your json:")
 
                     fix_bytes_value = tmp.replace(b"'", b'"')
-                    print("This is your fix_bytes_value:")
-                    print(fix_bytes_value)
-                    print("Below it will try to jsonload")
-                    text = str(fix_bytes_value)
-                    head, sep, tail = text.partition('k')
-                    print("below the data without the ku\x8f\xd5")
-                    print(head)
+                    #print("This is your fix_bytes_value:")
+                    #print(fix_bytes_value)
+                    #print("Below it will try to jsonload")
+                    #text = str(fix_bytes_value)
+                    #head, sep, tail = text.partition('k')
+                    #print("below the data without the ku\x8f\xd5")
+                    #print(head)
 
-                    my_json = json.load(io.BytesIO(fix_bytes_value))
-                    print(my_json)
+                    #my_json = json.load(io.BytesIO(fix_bytes_value))
+                    #print(my_json)
 
                     #json_data = json.loads(tmp)
                     #print("Look here JSON data: ", json_data)
+
+                    text = str(fix_bytes_value)
+                    head, sep, tail = text.partition("}")
+                    result = head + "}'"
+                    head, sep, tail = result.partition("b")
+                    head, sep, tail2 = tail.partition("'")
+                    head2, _, _ = tail2.partition("'")
+                    print(head2)
+                    my_json = json.loads(head2)
+                    print("Loaded!!!!!")
+                    print(my_json)
+
+
 
                 elif sys.argv[1] == "CV2X":
                     json_data = json.loads(data)
