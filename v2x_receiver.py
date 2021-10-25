@@ -81,12 +81,9 @@ if __name__ == '__main__':
         exit(0)
 
     if (sys.argv[1] == "ITSG5"):
-        # To receive message you need to listen to the port 4401 it can be found in the obu.conf
-        #print("IP_ADDRESS: ", IP_ADDRESS, "RX_PORT_ITSG5: ", 4401)
-        print("connected to: IP_ADDRESS: 143.129.82.245 at port: 4401")
-        # Original: sock.bind((IP_ADDRESS, 4401))
-        sock.bind(("143.129.82.245", 4400))
-        #sock.connect((IP_ADDRESS, 4401))
+        # To receive message you need to listen to the port 4400 it can be found in the obu.conf
+        print("connected to: IP_ADDRESS: 143.129.82.245 at port: 4400")
+        sock.bind(("143.129.82.245", 4400))  # You need to bind to the IP-address of your lxc container.
         print("ITSG5 Mode, sock.bind successfully!!!")
 
     else:
@@ -110,6 +107,7 @@ if __name__ == '__main__':
                 if sys.argv[1] == "ITSG5":
                     tmp = data[BTP_HEADER_SIZE:]
                     json_data = json.loads(tmp)
+                    print("Look here JSON data: ", json_data)
 
                 elif sys.argv[1] == "CV2X":
                     json_data = json.loads(data)
