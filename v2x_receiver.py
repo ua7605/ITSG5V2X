@@ -81,7 +81,7 @@ if __name__ == '__main__':
 
     if len(sys.argv) != 2:
         print("Wrong number of arguments")
-        print("Give first the technology you want to use (for now only ITS-G5 is supported)")
+        print("Give first the technology you want to use (for now only ITSG5 is supported)")
         print("Give second the IP-address of your LXC container (where this program is running and that matches with\n"
               " ItsUdpBtpIfHostName in the 'obu.conf that is included in this OBU or RSU.")
         exit(0)
