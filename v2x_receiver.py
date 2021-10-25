@@ -113,6 +113,9 @@ if __name__ == '__main__':
                     print("Below your json:")
 
                     fix_bytes_value = tmp.replace(b"'", b'"')
+                    print("This is your fix_bytes_value:")
+                    print(fix_bytes_value)
+                    print("Below it will try to jsonload")
 
                     my_json = json.load(io.BytesIO(fix_bytes_value))
                     print(my_json)
