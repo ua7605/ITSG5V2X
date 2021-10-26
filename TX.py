@@ -141,7 +141,7 @@ if __name__ == '__main__':
         #		if (sys.argv[2] == "DENM"):
         #            		server_address = (constant.SERVER_ADDRESS_ITSG5, 4404)
         #		else:
-        server_address = (SERVER_ADDRESS_ITSG5, TX_PORT)
+        server_address = (IP_ADDRESS_MK5_ITSG5, TX_PORT)
 
         log_dir = "./logitsg5tx/" + time.strftime("%Y%m%d%H%M%S%Z", time.localtime()) + "/"
     elif (sys.argv[1] == "CV2X"):

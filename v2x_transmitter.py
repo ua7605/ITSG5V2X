@@ -43,12 +43,13 @@ if __name__ == '__main__':
 
     if sys.argv[1] == "ITSG5":
         print("ITSG5 Mode")
-        print("sending to: ", SERVER_ADDRESS_ITSG5, "with port number: 4401")
+        print("sending to: ", IP_ADDRESS_MK5_ITSG5, "with port number: 4401")
 
-        server_address = (SERVER_ADDRESS_ITSG5, 4401)  # The port number can be found in the obu.conf file
+        server_address = (IP_ADDRESS_MK5_ITSG5, 4401)  # The port number can be found in the obu.conf file
 
     elif sys.argv[1] == "CV2X":
-        server_address = (SERVER_ADDRESS_CV2X, 4401)  # The port number can be found in the obu.conf file
+        # TODO: support to send also messages over CV2X
+        # server_address = (SERVER_ADDRESS_CV2X, 4401)  # The port number can be found in the obu.conf file
         print("CV2X Mode")
 
     gpsp = GpsPoller()
@@ -73,10 +74,7 @@ if __name__ == '__main__':
 
                 if sys.argv[1] == "ITSG5":
                     print("THis will be send: ", si_json)
-                    print("This is: round(gpsDaemon.get_latitude() * 10000000) = ",
-                          round(gpsDaemon.get_latitude() * 10000000))
-                    print("This is: round(gpsDaemon.get_longitude() * 10000000) = ",
-                          round(gpsDaemon.get_longitude() * 10000000))
+
                     btp_header = BTP((len(si_json)),
                                      round(gpsDaemon.get_latitude() * 10000000),
                                      round(gpsDaemon.get_longitude() * 10000000)
