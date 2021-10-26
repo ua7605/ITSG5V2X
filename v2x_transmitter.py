@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
     configuration_toml_file = configuration_toml("config.toml")
 
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 2:
         print(len(sys.argv))
         print(sys.argv[1])
         print("Wrong number of arguments")
@@ -45,11 +45,11 @@ if __name__ == '__main__':
         print("ITSG5 Mode")
         print("sending to: ", IP_ADDRESS_MK5_ITSG5, "with port number: 4401")
 
-        server_address = (IP_ADDRESS_MK5_ITSG5, 4401)  # The port number can be found in the obu.conf file
+        server_address = (IP_ADDRESS_MK5_ITSG5, 4401)  # The port number can be found in the obu.conf file, but standard this is always 4401
 
     elif sys.argv[1] == "CV2X":
         # TODO: support to send also messages over CV2X
-        # server_address = (SERVER_ADDRESS_CV2X, 4401)  # The port number can be found in the obu.conf file
+        # server_address = (SERVER_ADDRESS_CV2X, 4401)  # The port number can be found in the obu.conf file, but standard this is always 4401
         print("CV2X Mode")
 
     gpsp = GpsPoller()
