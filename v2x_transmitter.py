@@ -63,6 +63,8 @@ if __name__ == '__main__':
             if gpsp.gpsd.fix.mode != 200:  # mode = 1 means no fix
                 i += 1
                 millis = int(round(time.time() * 1000))
+
+                # This is the demo data that will be send over ITS-G5. But this can whatever you want.
                 si = SendItem(i, millis, gpsDaemon.get_latitude(), gpsDaemon.get_longitude(), gpsDaemon.get_speed())
 
                 si_json = json.dumps(si.__dict__)
