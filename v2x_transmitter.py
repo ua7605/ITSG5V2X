@@ -20,6 +20,7 @@ class SendItem:
         self.s_lon = lon
         self.s_speed = speed
 
+
 def configuration_toml(config: str):
     try:
         with open(config) as file:
@@ -29,10 +30,10 @@ def configuration_toml(config: str):
         print("File doesn't exists: " + config)
         sys.exit(0)
 
+
 if __name__ == '__main__':
 
     configuration_toml_file = configuration_toml("config.toml")
-
 
     if len(sys.argv) != 3:
         print(len(sys.argv))
@@ -40,14 +41,14 @@ if __name__ == '__main__':
         print("Wrong number of arguments")
         exit(0)
 
-    if (sys.argv[1] == "ITSG5"):
+    if sys.argv[1] == "ITSG5":
         print("ITSG5 Mode")
         print("sending to: ", SERVER_ADDRESS_ITSG5, "with port number: 4401")
 
-        server_address = (SERVER_ADDRESS_ITSG5, 4401) # The port number can be found in the obu.conf file
+        server_address = (SERVER_ADDRESS_ITSG5, 4401)  # The port number can be found in the obu.conf file
 
-    elif (sys.argv[1] == "CV2X"):
-        server_address = (SERVER_ADDRESS_CV2X, 4401) # The port number can be found in the obu.conf file
+    elif sys.argv[1] == "CV2X":
+        server_address = (SERVER_ADDRESS_CV2X, 4401)  # The port number can be found in the obu.conf file
         print("CV2X Mode")
 
     gpsp = GpsPoller()
@@ -58,25 +59,24 @@ if __name__ == '__main__':
         i = 0
 
         while True:
-            if (gpsp.gpsd.fix.mode != 200):  # mode = 1 means no fix
-                print("look here vincent below: ")
-                print("latitude: ", gpsDaemon.get_latitude())
-                print("longitude: ", gpsDaemon.get_longitude())
+            if gpsp.gpsd.fix.mode != 200:  # mode = 1 means no fix
                 i += 1
                 millis = int(round(time.time() * 1000))
                 si = SendItem(i, millis, gpsDaemon.get_latitude(), gpsDaemon.get_longitude(), gpsDaemon.get_speed())
 
                 si_json = json.dumps(si.__dict__)
 
-                if (sys.argv[2] == "DENM"):
+                if sys.argv[2] == "DENM":
                     si_json = si_json.ljust(PACKET_SIZE + 1)
                 else:
                     si_json = si_json.ljust(PACKET_SIZE)
 
-                if (sys.argv[1] == "ITSG5"):
-                    print("THis will be send: ",si_json)
-                    print("This is: round(gpsDaemon.get_latitude() * 10000000) = ", round(gpsDaemon.get_latitude() * 10000000))
-                    print("This is: round(gpsDaemon.get_longitude() * 10000000) = ", round(gpsDaemon.get_longitude() * 10000000))
+                if sys.argv[1] == "ITSG5":
+                    print("THis will be send: ", si_json)
+                    print("This is: round(gpsDaemon.get_latitude() * 10000000) = ",
+                          round(gpsDaemon.get_latitude() * 10000000))
+                    print("This is: round(gpsDaemon.get_longitude() * 10000000) = ",
+                          round(gpsDaemon.get_longitude() * 10000000))
                     btp_header = BTP((len(si_json)),
                                      round(gpsDaemon.get_latitude() * 10000000),
                                      round(gpsDaemon.get_longitude() * 10000000)
@@ -91,7 +91,7 @@ if __name__ == '__main__':
                     si.size = sent  # can be removed no use!
 
 
-                elif (sys.argv[1] == "CV2X"):
+                elif sys.argv[1] == "CV2X":
                     sent = sock.sendto(data=si_json, address=server_address)
                     si.size = sent
                 else:
