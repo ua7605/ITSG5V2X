@@ -67,10 +67,11 @@ if __name__ == '__main__':
 
                 si_json = json.dumps(si.__dict__)
 
-                if sys.argv[2] == "DENM":
-                    si_json = si_json.ljust(PACKET_SIZE + 1)
-                else:
-                    si_json = si_json.ljust(PACKET_SIZE)
+                # If you would use DEMN you need to add one to PACKET_SIZE
+                #if sys.argv[2] == "DENM":
+                    #si_json = si_json.ljust(PACKET_SIZE + 1)
+                #else:
+                si_json = si_json.ljust(PACKET_SIZE)
 
                 if sys.argv[1] == "ITSG5":
                     print("THis will be send: ", si_json)
