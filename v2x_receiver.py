@@ -60,7 +60,7 @@ class ReceiveItem:
 
 def on_message(client, userdata, message):
     print("received message = ", str(message.payload.decode("utf-8")))
-    if (gpsd.fix.mode != 200):
+    if gpsd.fix.mode != 200:
         millis = int(round(time.time() * 1000))
         payload = str(message.payload.decode("utf-8"))
         json_data = json.loads(payload)
