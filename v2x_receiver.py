@@ -89,7 +89,8 @@ if __name__ == '__main__':
     if (sys.argv[1] == "ITSG5"):
         # To receive message you need to listen to the port 4400 it can be found in the obu.conf
         print("connected to: IP_ADDRESS: ", IP_Address_lxc, " at port: 4400")
-        # sock.bind(("143.129.82.24", 4400))  # You need to bind to the IP-address of your lxc container.
+        # sock.bind(("143.129.82.24", 4400))  # You need to bind to the IP-address of your lxc container, where this
+        # script will run.
         IP_Address_lxc = sys.argv[2]
         sock.bind((sys.argv[2], 4400))
         print("ITSG5 Mode, sock.bind successfully!!!")
