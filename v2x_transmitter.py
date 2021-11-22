@@ -45,6 +45,8 @@ if __name__ == '__main__':
         print("ITSG5 Mode")
         print("sending to: ", IP_ADDRESS_MK5_ITSG5, "with port number: 4401")
 
+        # IP_ADDRESS_MK5_ITSG5 is the IP address of the MK5 that runs on the OBU or RSU where this Python program runs
+        # E.g., if you running this python script on RSU2 than IP_ADDRESS_MK5_ITSG5 = 143.129.82.26
         server_address = (IP_ADDRESS_MK5_ITSG5, 4401)  # The port number can be found in the obu.conf file,
         # but standard this is always 4401
 
@@ -52,6 +54,8 @@ if __name__ == '__main__':
         # TODO: support to send also messages over CV2X server_address = (SERVER_ADDRESS_CV2X, 4401)  # The port
         #  number can be found in the obu.conf file, but standard this is always 4401
         print("CV2X Mode")
+        # E.g., if you running this python script on RSU2 than SERVER_ADDRESS_CV2X = 143.129.82.27
+        server_address = (SERVER_ADDRESS_CV2X, 4401)  # Standard this is always 4401
 
     gpsp = GpsPoller()
     gpsDaemon: GPSDaemon = GPSDaemon.load_from_config(configuration=configuration_toml_file, transmitter=True)
@@ -71,9 +75,9 @@ if __name__ == '__main__':
                 si_json = json.dumps(si.__dict__)
 
                 # If you would use DEMN you need to add one to PACKET_SIZE
-                #if sys.argv[2] == "DENM":
-                    #si_json = si_json.ljust(PACKET_SIZE + 1)
-                #else:
+                # if sys.argv[2] == "DENM":
+                # si_json = si_json.ljust(PACKET_SIZE + 1)
+                # else:
                 si_json = si_json.ljust(PACKET_SIZE)
 
                 if sys.argv[1] == "ITSG5":

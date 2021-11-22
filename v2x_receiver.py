@@ -95,6 +95,14 @@ if __name__ == '__main__':
         sock.bind((sys.argv[2], 4400))
         print("ITSG5 Mode, sock.bind successfully!!!")
 
+    elif sys.argv[1] == "CV2X":
+        # To receive message you need to listen to the port 4400 it can be found in the obu.conf
+        print("connected to: IP_ADDRESS: ", IP_Address_lxc, " at port: 4400")
+        # sock.bind(("143.129.82.24", 4400))  # You need to bind to the IP-address of your lxc container, where this
+        # script will run.
+        IP_Address_lxc = sys.argv[2]
+        sock.bind((sys.argv[2], 4400))
+        print("ITSG5 Mode, sock.bind successfully!!!")
     else:
         IP_Address_lxc = sys.argv[2]
         sock.bind((IP_Address_lxc, 4400))
@@ -133,6 +141,8 @@ if __name__ == '__main__':
                     json_data = my_json
 
                 elif sys.argv[1] == "CV2X":
+                    print("This data is received:")
+                    print(data)
                     json_data = json.loads(data)
 
                 elif sys.argv[1] == "MQTT":
