@@ -100,7 +100,7 @@ if __name__ == '__main__':
                     byte_message = bytes(si_json.encode('utf-8'))
                     sent = sock.sendto(byte_message, server_address)
                     si.size = sent
-                    print("Message is sent over c-v2x")
+                    print("Message is sent over c-v2x, to MK6c: ", SERVER_ADDRESS_CV2X, ", on the port: ", TX_PORT)
                 else:
                     pass
 
