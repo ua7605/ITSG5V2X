@@ -92,7 +92,7 @@ if __name__ == '__main__':
         # sock.bind(("143.129.82.24", 4400))  # You need to bind to the IP-address of your lxc container, where this
         # script will run.
         IP_Address_lxc = sys.argv[2]
-        sock.bind((sys.argv[2], 4400))
+        sock.bind((sys.argv[2], RX_PORT_ITSG5))  # Port needs to be 4400
         print("ITSG5 Mode, sock.bind successfully!!!")
 
     elif sys.argv[1] == "CV2X":
@@ -101,7 +101,7 @@ if __name__ == '__main__':
         # sock.bind(("143.129.82.24", 4400))  # You need to bind to the IP-address of your lxc container, where this
         # script will run.
         IP_Address_lxc = sys.argv[2]
-        sock.bind((sys.argv[2], 4400))
+        sock.bind((sys.argv[2], RX_PORT_CV2X))  # RX port CV2X needs to be 4402
         print("ITSG5 Mode, sock.bind successfully!!!")
     else:
         IP_Address_lxc = sys.argv[2]

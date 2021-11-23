@@ -55,7 +55,7 @@ if __name__ == '__main__':
         #  number can be found in the obu.conf file, but standard this is always 4401
         print("CV2X Mode")
         # E.g., if you running this python script on RSU2 than SERVER_ADDRESS_CV2X = 143.129.82.27
-        server_address = (SERVER_ADDRESS_CV2X, 4401)  # Standard this is always 4401
+        server_address = (SERVER_ADDRESS_CV2X, TX_PORT)  # Standard this is always 4401
 
     gpsp = GpsPoller()
     gpsDaemon: GPSDaemon = GPSDaemon.load_from_config(configuration=configuration_toml_file, transmitter=True)
@@ -96,10 +96,11 @@ if __name__ == '__main__':
                     print("THe message is sent!")
                     si.size = sent  # can be removed no use!
 
-
                 elif sys.argv[1] == "CV2X":
-                    sent = sock.sendto(data=si_json, address=server_address)
+                    byte_message = bytes(si_json.encode('utf-8'))
+                    sent = sock.sendto(byte_message, server_address)
                     si.size = sent
+                    print("Message is sent over c-v2x")
                 else:
                     pass
 
