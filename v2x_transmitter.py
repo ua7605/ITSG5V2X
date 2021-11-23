@@ -35,6 +35,7 @@ if __name__ == '__main__':
 
     configuration_toml_file = configuration_toml("config.toml")
 
+
     if len(sys.argv) != 2:
         print(len(sys.argv))
         print(sys.argv[1])
