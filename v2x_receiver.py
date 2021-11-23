@@ -115,7 +115,12 @@ if __name__ == '__main__':
         gpsp.start()
 
         while True:
-            print("Waiting for incoming UDP message")
+            if sys.argv[1] == "ITSG5":
+                print("Waiting for incoming UDP message")
+            elif sys.argv[1] == "CV2X":
+                print("Waiting for incoming UDP message, listening on IP: ", IP_Address_lxc, ", on port: ",
+                      RX_PORT_CV2X)
+
             data, addr = sock.recvfrom(1300)
             print("Received message: ", data)
 
@@ -141,8 +146,8 @@ if __name__ == '__main__':
                     json_data = my_json
 
                 elif sys.argv[1] == "CV2X":
-                    print("This data is received:")
-                    print(data)
+                    print(" This data is received over c-v2x:")
+                    print(data)  # TODO: his data needs to be printed as JSON
                     json_data = json.loads(data)
 
                 elif sys.argv[1] == "MQTT":
