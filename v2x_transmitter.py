@@ -3,6 +3,7 @@ import json
 import sys
 import time
 import toml
+import asn1tools
 
 from GPSlogic.GPS import GPSDaemon
 from constant.Constants import *
@@ -10,6 +11,16 @@ from GPSlogic.GPSPolling import GpsPoller
 from Cohdas.BTPheader import BTP
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+
+def _service_setup(template_cam):
+    template_cam['cam']['camParameters']['highFrequencyContainer'] = \
+        (
+            'basicVehicleContainerHighFrequency',
+            template_cam['cam']['camParameters']['highFrequencyContainer'][1]
+        )
+
+    return template_cam
 
 
 class SendItem:
@@ -34,6 +45,12 @@ def configuration_toml(config: str):
 if __name__ == '__main__':
 
     configuration_toml_file = configuration_toml("config.toml")
+    cam_asn1 = asn1tools.compile_files('./cam121.asn', 'uper')
+    f = open("cam_template.json", "r")
+    template_cam = json.load(f)
+    print("Template 1:", template_cam)
+    template_cam = _service_setup(template_cam)
+
 
     if len(sys.argv) != 2:
         print(len(sys.argv))
@@ -71,22 +88,37 @@ if __name__ == '__main__':
                 si_json = json.dumps(si.__dict__)
 
                 # If you would use DEMN you need to add one to PACKET_SIZE
-                #if sys.argv[2] == "DENM":
-                    #si_json = si_json.ljust(PACKET_SIZE + 1)
-                #else:
+                # if sys.argv[2] == "DENM":
+                # si_json = si_json.ljust(PACKET_SIZE + 1)
+                # else:
                 si_json = si_json.ljust(PACKET_SIZE)
 
-                if sys.argv[1] == "ITSG5":
-                    print("THis will be send: ", si_json)
+                template_cam['cam']['camParameters']['basicContainer']['referencePosition']['latitude'] = round(
+                    gpsDaemon.get_latitude() * 10000000)
+                template_cam['cam']['camParameters']['basicContainer']['referencePosition']['longitude'] = round(
+                    gpsDaemon.get_longitude() * 10000000)
 
-                    btp_header = BTP((len(si_json)),
+                payload = cam_asn1.encode("CAM", template_cam)
+
+                if sys.argv[1] == "ITSG5":
+                    # the original:
+                    #btp_header = BTP((len(si_json)),
+                                     #round(gpsDaemon.get_latitude() * 10000000),
+                                     #round(gpsDaemon.get_longitude() * 10000000)
+                                     #)
+                    # With CAM message
+                    btp_header = BTP((len(payload)),
                                      round(gpsDaemon.get_latitude() * 10000000),
                                      round(gpsDaemon.get_longitude() * 10000000)
                                      )
 
                     btp_header.assemble_btp_fields()
+                    # original
+                    #print("The header is assembled !!!!")
+                    #to_be_send = btp_header.raw + bytes(si_json.encode('utf-8'))
+
                     print("The header is assembled !!!!")
-                    to_be_send = btp_header.raw + bytes(si_json.encode('utf-8'))
+                    to_be_send = btp_header.raw + bytes(payload)
 
                     sent = sock.sendto(to_be_send, server_address)
                     print("THe message is sent!")
